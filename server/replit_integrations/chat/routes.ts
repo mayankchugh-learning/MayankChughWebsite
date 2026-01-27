@@ -83,7 +83,10 @@ export function registerChatRoutes(app: Express): void {
       // Stream response from OpenAI
       const stream = await openai.chat.completions.create({
         model: "gpt-5.1",
-        messages: chatMessages,
+        messages: [
+          { role: "system", content: "You are a professional AI assistant for Mayank Chugh, a Generative AI Engineer and Solutions Architect. Your goal is to answer questions about Mayank's career, projects, and skills based on his profile. Be professional and helpful. Mention that this chat history will be shared with Mayank for follow-up." },
+          ...chatMessages
+        ],
         stream: true,
         max_completion_tokens: 2048,
       });
