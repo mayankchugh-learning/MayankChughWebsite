@@ -49,9 +49,25 @@ export const messages = pgTable("messages", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const chat_sessions = pgTable("chat_sessions", {
+  id: serial("id").primaryKey(),
+  email: text("email"),
+  status: text("status").default("active"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const chat_messages = pgTable("chat_messages", {
+  id: serial("id").primaryKey(),
+  sessionId: integer("session_id").references(() => chat_sessions.id),
+  role: text("role").notNull(), // 'user' | 'assistant'
+  content: text("content").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 // === SCHEMAS ===
 
 export const insertMessageSchema = createInsertSchema(messages).omit({ id: true, createdAt: true });
+export const insertChatMessageSchema = createInsertSchema(chat_messages).omit({ id: true, createdAt: true });
 
 // === TYPES ===
 
@@ -61,3 +77,6 @@ export type Project = typeof projects.$inferSelect;
 export type Skill = typeof skills.$inferSelect;
 export type Message = typeof messages.$inferSelect;
 export type InsertMessage = z.infer<typeof insertMessageSchema>;
+export type ChatSession = typeof chat_sessions.$inferSelect;
+export type ChatMessage = typeof chat_messages.$inferSelect;
+export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;

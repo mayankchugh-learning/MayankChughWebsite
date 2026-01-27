@@ -63,6 +63,23 @@ export const api = {
       },
     },
   },
+  chat: {
+    send: {
+      method: 'POST' as const,
+      path: '/api/chat',
+      input: z.object({
+        message: z.string(),
+        email: z.string().email().optional(),
+        sessionId: z.number().optional(),
+      }),
+      responses: {
+        200: z.object({
+          reply: z.string(),
+          sessionId: z.number(),
+        }),
+      },
+    },
+  },
 };
 
 export function buildUrl(path: string, params?: Record<string, string | number>): string {
