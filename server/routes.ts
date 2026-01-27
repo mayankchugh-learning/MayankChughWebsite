@@ -59,6 +59,7 @@ async function seedDatabase() {
     name: "Mayank Chugh",
     title: "Generative AI ❖ AI Project Manager ❖ Visionary Enterprise Architect",
     bio: "A seasoned Enterprise Architect with over 20 years of hands-on experience in the IT landscape, specializing in orchestrating seamless software engineering, cloud migration and integration, technical project management, and business analysis. Seasoned in strategic IT leadership, cloud migration/integration, solution architecture & development.",
+    avatarUrl: "/images/profile.jpeg",
     socialLinks: [
       { platform: "LinkedIn", url: "https://www.linkedin.com/in/mchugh77", icon: "linkedin" },
       { platform: "YouTube", url: "http://www.youtube.com/@itaienthusiast", icon: "youtube" },
