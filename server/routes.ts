@@ -57,10 +57,10 @@ export async function registerRoutes(
 async function seedDatabase() {
   await storage.seedProfile({
     name: "Mayank Chugh",
-    title: "Generative AI Engineer | Enterprise Architect | Data Scientist",
-    bio: "A tech-savvy, self-motivated professional with over two decades of experience in strategic IT leadership, data analytics, software development, and cloud integration. Visionary in cloud migration, data analytics, and driving strategic innovation for global enterprises.",
+    title: "Generative AI ❖ AI Project Manager ❖ Visionary Enterprise Architect",
+    bio: "A seasoned Enterprise Architect with over 20 years of hands-on experience in the IT landscape, specializing in orchestrating seamless software engineering, cloud migration and integration, technical project management, and business analysis. Seasoned in strategic IT leadership, cloud migration/integration, solution architecture & development.",
     socialLinks: [
-      { platform: "LinkedIn", url: "https://linkedin.com/in/mchugh77", icon: "linkedin" },
+      { platform: "LinkedIn", url: "https://www.linkedin.com/in/mchugh77", icon: "linkedin" },
       { platform: "YouTube", url: "http://www.youtube.com/@itaienthusiast", icon: "youtube" },
       { platform: "GitHub", url: "https://github.com/mayankchugh-learning", icon: "github" },
       { platform: "HuggingFace", url: "https://huggingface.co/mayankchugh-learning", icon: "brain" },
