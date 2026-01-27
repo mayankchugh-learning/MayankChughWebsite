@@ -1,38 +1,80 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { db } from "./db";
+import {
+  profile,
+  experiences,
+  projects,
+  skills,
+  messages,
+  type Profile,
+  type Experience,
+  type Project,
+  type Skill,
+  type InsertMessage
+} from "@shared/schema";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  getProfile(): Promise<Profile | undefined>;
+  getExperiences(): Promise<Experience[]>;
+  getProjects(): Promise<Project[]>;
+  getSkills(): Promise<Skill[]>;
+  createMessage(message: InsertMessage): Promise<void>;
+  // Seeding methods
+  seedProfile(data: any): Promise<void>;
+  seedExperiences(data: any[]): Promise<void>;
+  seedProjects(data: any[]): Promise<void>;
+  seedSkills(data: any[]): Promise<void>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async getProfile(): Promise<Profile | undefined> {
+    const [data] = await db.select().from(profile).limit(1);
+    return data;
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async getExperiences(): Promise<Experience[]> {
+    return await db.select().from(experiences).orderBy(experiences.order);
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async getProjects(): Promise<Project[]> {
+    return await db.select().from(projects);
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async getSkills(): Promise<Skill[]> {
+    return await db.select().from(skills);
+  }
+
+  async createMessage(message: InsertMessage): Promise<void> {
+    await db.insert(messages).values(message);
+  }
+
+  async seedProfile(data: any): Promise<void> {
+    const existing = await this.getProfile();
+    if (!existing) {
+      await db.insert(profile).values(data);
+    }
+  }
+
+  async seedExperiences(data: any[]): Promise<void> {
+    const existing = await this.getExperiences();
+    if (existing.length === 0) {
+      await db.insert(experiences).values(data);
+    }
+  }
+
+  async seedProjects(data: any[]): Promise<void> {
+    const existing = await this.getProjects();
+    if (existing.length === 0) {
+      await db.insert(projects).values(data);
+    }
+  }
+
+  async seedSkills(data: any[]): Promise<void> {
+    const existing = await this.getSkills();
+    if (existing.length === 0) {
+      await db.insert(skills).values(data);
+    }
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
