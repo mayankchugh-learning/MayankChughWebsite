@@ -146,6 +146,20 @@ async function seedDatabase() {
       techStack: ["GenAI", "Python", "WhatsApp API"],
       repoUrl: "https://github.com/mayankchugh-learning/WhatsApp-Bot-using-GenAI.git",
       featured: false
+    },
+    {
+      title: "End-to-End Generative AI Project",
+      description: "A comprehensive guide to building end-to-end GenAI applications.",
+      techStack: ["GenAI", "LLM", "Python"],
+      demoUrl: "https://www.youtube.com/watch?v=uyaBoviBNtI",
+      featured: true
+    },
+    {
+      title: "Multi-Agent Systems with CrewAI",
+      description: "Building complex AI workflows using multi-agent orchestration.",
+      techStack: ["CrewAI", "Agents", "Python"],
+      demoUrl: "https://www.youtube.com/watch?v=p81ouOZVDTs",
+      featured: true
     }
   ]);
 
@@ -153,6 +167,8 @@ async function seedDatabase() {
     { name: "Python", category: "Languages", proficiency: 95 },
     { name: "Java", category: "Languages", proficiency: 90 },
     { name: "Generative AI", category: "AI/ML", proficiency: 90 },
+    { name: "Microsoft Fabric", category: "Data Engineering", proficiency: 85 },
+    { name: "Vibe Coding", category: "AI/ML", proficiency: 80 },
     { name: "TensorFlow", category: "AI/ML", proficiency: 85 },
     { name: "PyTorch", category: "AI/ML", proficiency: 85 },
     { name: "AWS", category: "Cloud", proficiency: 85 },
